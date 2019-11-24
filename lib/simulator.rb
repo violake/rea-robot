@@ -3,6 +3,7 @@
 require 'simulation/command_parser'
 require 'simulation/robot'
 require 'simulation/table'
+require 'simulator_cli'
 
 class Simulator
   attr_reader :script_file, :robot
@@ -17,6 +18,16 @@ class Simulator
   end
 
   def run
+    running_cli? ? start_cli : run_script
+  end
+
+  private
+
+  def running_cli?
+    script_file.nil?
+  end
+
+  def run_script
     file = File.open(script_file, 'r')
     file.each_line do |line|
       run_command line
@@ -24,9 +35,25 @@ class Simulator
     file.close
   end
 
-  private
+  def start_cli
+    SimulatorCli.new.start do |command|
+      run_command command
+    end
+  end
 
   def run_command(command_str)
     Simulation::CommandParser.new(command_str).executor.call(robot)
+  rescue Simulation::Error, ArgumentError => e
+    if running_cli?
+      puts e.message
+    else
+      raise e unless ignore_error_when_runnning_script?(e)
+    end
+  end
+
+  # ignore correct command before a place command when running a script file
+  def ignore_error_when_runnning_script?(error)
+    error.instance_of?(Simulation::Error) &&
+      error.error_type == Simulation::Error::ROBOT_NOT_PALCED
   end
 end
