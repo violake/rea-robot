@@ -1,5 +1,17 @@
 # frozen_string_literal: true
 
+## Simulation::Direction Class
+#
+#  Init Param: name of the direction
+#  Aim: create an instance that has validation for direction names and
+#       methods to create new Direction instance
+#  Guard: NAMES to verify a name
+#
+#  Design: decoupled from Robot class
+#          direction should not have the concept for 'left' or 'right'
+#          implement prevoius and next direction method to support current requirement
+#
+
 module Simulation
   class Direction
     NAMES = %i[north west south east].freeze

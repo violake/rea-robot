@@ -4,6 +4,21 @@ require 'simulation/position'
 require 'simulation/direction'
 require 'simulation/error'
 
+## Simulation::Robot Class
+#
+#  Init Param: table
+#  Aim: main charactor for this simulation.
+#       create a robot that can place, move, turn left, turn right, report
+#  Guard: robot cannot move, turn left, turn right, report before it has been placed
+#         robot cannot be placed or move outside the table
+#
+#  Design: the 'moving' calculation hasn't been extracted out because
+#          it will be tightly coupled with position and facing
+#          maybe it will be better to using inheritance when there are
+#          more objects can move based on facing and position
+#          using a hash mapping the facing and deltas
+#
+
 module Simulation
   class Robot
     DEFAULT_PACE = 1

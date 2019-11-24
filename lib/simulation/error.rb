@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
+## Simulation::Error Class
+#
+#  Aim: distinct errors and type defination
+#
+#  Design: a bunch of errors in one error class
+#
+#  Concern: this is greate if error handling or formatting are in same pattern
+#           but it's kind of verbose when new such an error
+#
+
 module Simulation
   class Error < StandardError
     attr_reader :error_type

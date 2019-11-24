@@ -2,6 +2,18 @@
 
 require 'utils/type_checker'
 
+## Simulation::Table Class
+#
+#  Init Param: dimensions
+#  Aim: create an table that has dimensions and
+#       methods to verify coordinates inside the table object
+#  Guard: dimensions must be positive integer to ensure a reasonable table
+#
+#  Design: Two-dimensional table support any size of dimension that is positive integer
+#          when validate a position is in table should use coordinates directly
+#          as table needn't to know the existance of Position
+#
+
 module Simulation
   class Table
     attr_reader :dimension_x, :dimension_y

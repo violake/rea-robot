@@ -2,6 +2,14 @@
 
 require 'logger'
 
+## Simulation::Logger Class
+#
+#  Aim: log error message when running script
+#
+#  Design: singleton logger instance.
+#          deligate error method of Logger instance
+#
+
 module Simulation
   class Logger
     class << self

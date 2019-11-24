@@ -6,6 +6,22 @@ require 'simulation/robot'
 require 'simulation/table'
 require 'simulator_cli'
 
+## Simulator Class
+#
+#  Init Param: <script file>
+#  Aim: main class for this simulation.
+#       initialize a table and a robot and start to run scripts or start cli
+#
+#  Design: both script runner and cli will have to initialize table object and robot object
+#          and have the same action to run commands read in. So I implement it in one class
+#          In this case, I make SimulatorCli to be a pure cli class with no logic but help text
+#
+#  Concern: because error handling for script runner and cli are totally different
+#           maybe it's better to have two different classes to handle this polymorphism
+#           but this will create lots of duplication if doing so
+#           maybe could separate them when there are more differences
+#
+
 class Simulator
   attr_reader :script_file, :robot
 

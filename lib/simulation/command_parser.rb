@@ -2,6 +2,18 @@
 
 require 'simulation/error'
 
+## Simulation::CommandParser Class
+#
+#  Init Param: command string to be parsed
+#  Aim: parse all the command string to a command_executor
+#  Guard: SUPPORTED_COMMANDS to verify a command and raise error if not
+#
+#  Design: all the command must be extracted and verified.
+#          currently it looks like the same pattern
+#          'curry' is a kind of lambda creater which can implement a pattern
+#          that returns a method to call the command and arguments for the future object
+#
+
 module Simulation
   class CommandParser
     attr_reader :command, :args

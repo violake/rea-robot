@@ -1,5 +1,12 @@
 # frozen_string_literal: true
 
+## SimulatorCli Class
+#
+#  Aim: Create a CLI frame work
+#
+#  Design: a cli that has help and quit command can also run command by given block
+#
+
 class SimulatorCli
   COMMAND_PROMPT = '>'
   COMMAND_EXIT = 'exit'
