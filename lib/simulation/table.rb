@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
+require 'utils/type_checker'
+
 module Simulation
   class Table
     attr_reader :dimension_x, :dimension_y
 
     def initialize(dimension_x, dimension_y)
-      unless positive_integer?(dimension_x) &&
-             positive_integer?(dimension_y)
+      unless Utils::TypeChecker.positive_integer?(dimension_x) &&
+             Utils::TypeChecker.positive_integer?(dimension_y)
         raise ArgumentError,
               'dimension should be positive integer!'
       end
@@ -22,12 +24,6 @@ module Simulation
 
     def to_s
       "Table(#{dimension_x},#{dimension_y})"
-    end
-
-    private
-
-    def positive_integer?(obj)
-      obj.to_s.to_i.to_s == obj.to_s && obj.to_s.to_i.positive?
     end
   end
 end

@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
+require 'utils/type_checker'
+
 module Simulation
   class Position
     attr_reader :coordinate_x, :coordinate_y
 
     def initialize(coordinate_x, coordinate_y)
-      unless integer?(coordinate_x) &&
-             integer?(coordinate_y)
+      unless Utils::TypeChecker.integer?(coordinate_x) &&
+             Utils::TypeChecker.integer?(coordinate_y)
         raise ArgumentError,
               'coordinate should be integer!'
       end
@@ -21,12 +23,6 @@ module Simulation
 
     def to_s
       "#{coordinate_x},#{coordinate_y}"
-    end
-
-    private
-
-    def integer?(obj)
-      obj.to_s.to_i.to_s == obj.to_s
     end
   end
 end
