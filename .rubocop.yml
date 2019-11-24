@@ -10,7 +10,7 @@ Metrics/AbcSize:
   Exclude:
     - 'spec/**/*'
 
-Documentation:
+Style/Documentation:
   Enabled: false
 
 Style/GuardClause:
