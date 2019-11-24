@@ -17,7 +17,7 @@ module Simulation
     def place(coordinate_x, coordinate_y, direction_name)
       position = Position.new(coordinate_x, coordinate_y)
       direction = Direction.new(direction_name)
-      raise_if_outside_table(position)
+      raise_if_fall_off_table(position)
 
       @position = position
       @direction = direction
@@ -27,7 +27,7 @@ module Simulation
       raise_if_not_placed
 
       new_position = position.next_position_by_delta(*moving_delta)
-      raise_if_outside_table(new_position)
+      raise_if_fall_off_table(new_position)
 
       @position = new_position
     end
@@ -62,7 +62,7 @@ module Simulation
       end
     end
 
-    def raise_if_outside_table(position)
+    def raise_if_fall_off_table(position)
       unless table.inside?(position.coordinate_x, position.coordinate_y)
         raise Simulation::Error.new(Simulation::Error::POSITION_OUT_OF_TABLE,
                                     "position(#{position}) is invalid for #{table}")
@@ -70,19 +70,23 @@ module Simulation
     end
 
     def moving_delta(pace = DEFAULT_PACE)
-      case direction.name
-      when :north
-        [0, pace]
-      when :west
-        [-pace, 0]
-      when :south
-        [0, -pace]
-      when :east
-        [pace, 0]
-      else
+      delta = delta_by_direction(pace)[direction.name]
+
+      unless delta
         raise Simulation::Error.new(Simulation::Error::DIRECTION_INVALID,
                                     "direction '#{direction}' could not forward!")
       end
+
+      delta
+    end
+
+    def delta_by_direction(pace)
+      {
+        north: [0, pace],
+        west: [-pace, 0],
+        south: [0, -pace],
+        east: [pace, 0]
+      }
     end
   end
 end
