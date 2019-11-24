@@ -15,6 +15,12 @@ rspec
 # code format
 rubocop
 
+# run simulator with script_file
+./scripts/robot_simulator.rb example_files/example_a
+
+# run simulator cli. play according to help info
+./scripts/robot_simulator.rb
+
 ```
 
 ### local
@@ -29,5 +35,11 @@ rspec
 
 # code format
 rubocop
+
+# run simulator with script_file
+./scripts/robot_simulator.rb example_files/example_a
+
+# run simulator cli. play according to help info
+./scripts/robot_simulator.rb
 
 ```

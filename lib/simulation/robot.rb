@@ -65,7 +65,7 @@ module Simulation
     def raise_if_fall_off_table(position)
       unless table.inside?(position.coordinate_x, position.coordinate_y)
         raise Simulation::Error.new(Simulation::Error::POSITION_OUT_OF_TABLE,
-                                    "position(#{position}) is invalid for #{table}")
+                                    "robot will fall off table for position(#{position})")
       end
     end
 

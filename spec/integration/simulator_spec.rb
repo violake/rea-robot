@@ -52,7 +52,7 @@ RSpec.describe Simulator do
 
     context 'place outside' do
       let(:file_path) { File.join(test_folder, 'place_outside') }
-      let(:expect_error_log) { 'position(3,-1) is invalid for Table(5,5)' }
+      let(:expect_error_log) { 'robot will fall off table for position(3,-1)' }
 
       it 'should get robot status' do
         expect(Simulation::Logger).to receive(:error).with expect_error_log

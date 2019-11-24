@@ -26,7 +26,7 @@ describe Simulation::Robot do
         expect { robot.place(error_coordinate_x, coordinate_y, direction_name) }
           .to raise_error(
             Simulation::Error,
-            "position(#{error_coordinate_x},#{coordinate_y}) is invalid for #{table}"
+            "robot will fall off table for position(#{error_coordinate_x},#{coordinate_y})"
           )
       end
     end
@@ -90,7 +90,7 @@ describe Simulation::Robot do
         expect { robot.move }
           .to raise_error(
             Simulation::Error,
-            "position(#{coordinate_x},#{dimension_y + 1}) is invalid for #{table}"
+            "robot will fall off table for position(#{coordinate_x},#{dimension_y + 1})"
           )
       end
     end
