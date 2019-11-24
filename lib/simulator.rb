@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'simulation/command_parser'
+require 'simulation/logger'
 require 'simulation/robot'
 require 'simulation/table'
 require 'simulator_cli'
@@ -47,7 +48,7 @@ class Simulator
     if running_cli?
       puts e.message
     else
-      raise e unless ignore_error_when_runnning_script?(e)
+      Simulation::Logger.error(e.message) unless ignore_error_when_runnning_script?(e)
     end
   end
 

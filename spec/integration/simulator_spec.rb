@@ -39,6 +39,46 @@ RSpec.describe Simulator do
         subject.new(file_path).run
       end
     end
+
+    context 'move outside' do
+      let(:file_path) { File.join(test_folder, 'move_outside') }
+      let(:expect_output) { '3,0,SOUTH' }
+
+      it 'should get robot status' do
+        expect(STDOUT).to receive(:puts).with expect_output
+        subject.new(file_path).run
+      end
+    end
+
+    context 'place outside' do
+      let(:file_path) { File.join(test_folder, 'place_outside') }
+      let(:expect_error_log) { 'position(3,-1) is invalid for Table(5,5)' }
+
+      it 'should get robot status' do
+        expect(Simulation::Logger).to receive(:error).with expect_error_log
+        subject.new(file_path).run
+      end
+    end
+
+    context 'invalid command' do
+      let(:file_path) { File.join(test_folder, 'invalid_command') }
+      let(:expect_error_log) { "command 'fly' is not supported" }
+
+      it 'should get robot status' do
+        expect(Simulation::Logger).to receive(:error).with expect_error_log
+        subject.new(file_path).run
+      end
+    end
+
+    context 'invalid param' do
+      let(:file_path) { File.join(test_folder, 'invalid_param') }
+      let(:expect_error_log) { 'coordinate should be integer!' }
+
+      it 'should get robot status' do
+        expect(Simulation::Logger).to receive(:error).with expect_error_log
+        subject.new(file_path).run
+      end
+    end
   end
 
   describe 'cli' do
@@ -104,6 +144,23 @@ RSpec.describe Simulator do
       it 'should place robot' do
         expect(STDOUT).to receive(:puts).with start_text
         expect(STDOUT).to receive(:puts).with expect_report_text
+        expect(STDOUT).to receive(:puts).with exit_text
+
+        subject.run
+      end
+    end
+
+    context 'error command' do
+      let(:error_command) { 'come' }
+      let(:command_error_text) { "command '#{error_command}' is not supported" }
+
+      before { $stdin = StringIO.new("#{error_command}\n#{exit_command}") }
+
+      after { $stdin = STDIN }
+
+      it 'should output error message' do
+        expect(STDOUT).to receive(:puts).with start_text
+        expect(STDOUT).to receive(:puts).with command_error_text
         expect(STDOUT).to receive(:puts).with exit_text
 
         subject.run
